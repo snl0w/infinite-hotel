@@ -16,7 +16,9 @@ const backgroundLevel1 = new Sprite({
 })
 
 const player = new Player({
-    collisionBlocks: CollisionBlocks
+    collisionBlocks: CollisionBlocks,
+    imageSrc: './img/B_witch_idle1.png',
+    frameRate: 6
 })
 
 // teclas "w, a, d" são iniciadas como não pressionadas
