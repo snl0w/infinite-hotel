@@ -28,7 +28,13 @@ class Player {
     }
     update() {
         this.position.x += this.velocity.x
-        // Verifica por colisões horizontais
+        this.checkForHorizontalCollisions() 
+
+        this.applayGravity()
+        
+        this.checkForVerticalCollisions()
+    }
+    checkForHorizontalCollisions(){
         for (let i = 0; i < this.collisionBlocks.length; i++) {
             const collisionBlock = this.collisionBlocks[i]
 
@@ -49,13 +55,14 @@ class Player {
                 }
             }
         }
+    }
 
-        // aplica gravidade
+    applayGravity(){
         this.velocity.y += this.gravity
         this.position.y += this.velocity.y
-        this.sides.bottom = this.position.y + this.height
+    }
 
-        // verifica por colisões verticais
+    checkForVerticalCollisions(){
         for (let i = 0; i < this.collisionBlocks.length; i++) {
             const collisionBlock = this.collisionBlocks[i]
 
@@ -79,5 +86,4 @@ class Player {
             }
         }
     }
-
 }
