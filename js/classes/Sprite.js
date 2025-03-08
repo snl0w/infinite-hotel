@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({ position, imageSrc, frameRate = 1, animations }) {
+    constructor({ position, imageSrc, frameRate = 1, animations, frameBuffer = 7, loop = true, autoplay = true }) {
         this.position = position
         this.image = new Image()
         this.image.onload = () => {
@@ -12,8 +12,11 @@ class Sprite {
         this.frameRate = frameRate
         this.currentFrame = 0
         this.elapsedFrames = 0
-        this.frameBuffer = 7 // define a velocidade que o sprite atualiza
+        this.frameBuffer = frameBuffer // define a velocidade que o sprite atualiza
         this.animations = animations
+        this.loop = loop
+        this.autoplay = autoplay
+        
 
         if(this.animations){
             for(let key in this.animations){
@@ -49,12 +52,18 @@ class Sprite {
         this.updateFrames()
     }
 
+    play(){
+        this.autoplay = true
+    }
+
     updateFrames() {
+        if(!this.autoplay) return // se autoplay é falso, ele nao vai animar o que foi estabelecido como false
+
         this.elapsedFrames++
 
         if (this.elapsedFrames % this.frameBuffer === 0) {
             if (this.currentFrame < this.frameRate - 1) this.currentFrame++
-            else this.currentFrame = 0
+            else if (this.loop) this.currentFrame = 0
         }
     }
 }

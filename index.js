@@ -20,11 +20,11 @@ const player = new Player({
     imageSrc: './img/B_witch_idleRight.png',
     frameRate: 6, // quantas sprites tem o jogador
     animations: {
-        idleRight:{
-            frameRate: 6,
-            frameBuffer: 7,
-            loop: true,
-            imageSrc: './img/B_witch_idleRight.png'
+        idleRight:{ // parado para a direita
+            frameRate: 6, //quantos sprites tem
+            frameBuffer: 7, // velocidade de atualização dos sprites
+            loop: true, // loop para não parar as imagens
+            imageSrc: './img/B_witch_idleRight.png' //localização de onde está o sprite na pasta
         },
         idleLeft:{
             frameRate: 6,
@@ -43,9 +43,29 @@ const player = new Player({
             frameBuffer: 7,
             loop: true,
             imageSrc: './img/B_witch_runLeft.png'
+        },
+        enterDoor:{
+            frameRate: 8,
+            frameBuffer: 7,
+            loop: false,
+            imageSrc: './img/B_witch_enterDoor.png'
         }
     }
 })
+
+const doors = [
+    new Sprite({
+        position:{
+            x: 480,
+            y: 273
+        },
+        imageSrc: './img/Elevator Opening (46x56).png',
+        frameRate: 5,
+        frameBuffer: 5,
+        loop: false,
+        autoplay: false
+    })
+]
 
 // teclas "w, a, d" são iniciadas como não pressionadas
 const keys = {
@@ -69,22 +89,11 @@ function animate() {
         CollisionBlock.draw()
     })
 
-    player.velocity.x = 0
-    if (keys.d.pressed) {
-        player.switchSprite('runRight')
-        player.velocity.x = 5
-        player.lastDirection = 'right'
-    } else if (keys.a.pressed) {
-        player.switchSprite('runLeft')
-        player.velocity.x = -5
-        player.lastDirection = 'left'
-    }
-    else {
-        if(player.lastDirection === 'left'){
-            player.switchSprite('idleLeft')
-        } else player.switchSprite('idleRight')
-        
-    }
+    doors.forEach(door => {
+        door.draw()
+    })
+
+    player.handleInput(keys)
     player.draw()
     player.update()
 
