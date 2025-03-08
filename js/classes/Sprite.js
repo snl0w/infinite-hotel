@@ -1,5 +1,5 @@
 class Sprite {
-    constructor({ position, imageSrc, frameRate = 1 }) {
+    constructor({ position, imageSrc, frameRate = 1, animations }) {
         this.position = position
         this.image = new Image()
         this.image.onload = () => {
@@ -12,7 +12,17 @@ class Sprite {
         this.frameRate = frameRate
         this.currentFrame = 0
         this.elapsedFrames = 0
-        this.frameBuffer = 6
+        this.frameBuffer = 7 // define a velocidade que o sprite atualiza
+        this.animations = animations
+
+        if(this.animations){
+            for(let key in this.animations){
+                const image = new Image()
+                image.src = this.animations[key].imageSrc
+                this.animations[key].image = image
+            }
+        
+        }
     }
     draw() {
         if (!this.loaded) return
@@ -24,6 +34,7 @@ class Sprite {
             width: this.width,
             height: this.height
         }
+        // recorta o sheet do personagem
         c.drawImage(this.image,
             cropbox.position.x,
             cropbox.position.y,

@@ -17,8 +17,34 @@ const backgroundLevel1 = new Sprite({
 
 const player = new Player({
     collisionBlocks: CollisionBlocks,
-    imageSrc: './img/B_witch_idle1.png',
-    frameRate: 6
+    imageSrc: './img/B_witch_idleRight.png',
+    frameRate: 6, // quantas sprites tem o jogador
+    animations: {
+        idleRight:{
+            frameRate: 6,
+            frameBuffer: 7,
+            loop: true,
+            imageSrc: './img/B_witch_idleRight.png'
+        },
+        idleLeft:{
+            frameRate: 6,
+            frameBuffer: 7,
+            loop: true,
+            imageSrc: './img/B_witch_idleLeft.png'
+        },
+        runRight:{
+            frameRate: 8,
+            frameBuffer: 7,
+            loop: true,
+            imageSrc: './img/B_witch_runRight.png'
+        },
+        runLeft:{
+            frameRate: 8,
+            frameBuffer: 7,
+            loop: true,
+            imageSrc: './img/B_witch_runLeft.png'
+        }
+    }
 })
 
 // teclas "w, a, d" são iniciadas como não pressionadas
@@ -44,8 +70,21 @@ function animate() {
     })
 
     player.velocity.x = 0
-    if (keys.d.pressed) player.velocity.x = 5
-    else if (keys.a.pressed) player.velocity.x = -5
+    if (keys.d.pressed) {
+        player.switchSprite('runRight')
+        player.velocity.x = 5
+        player.lastDirection = 'right'
+    } else if (keys.a.pressed) {
+        player.switchSprite('runLeft')
+        player.velocity.x = -5
+        player.lastDirection = 'left'
+    }
+    else {
+        if(player.lastDirection === 'left'){
+            player.switchSprite('idleLeft')
+        } else player.switchSprite('idleRight')
+        
+    }
     player.draw()
     player.update()
 
