@@ -1,6 +1,7 @@
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'w':
+            // velocidade e altura do jogador pulando, quanto menor o número, maior a altura que ele pula
             if (player.velocity.y === 0) player.velocity.y = -20
 
             break
@@ -20,12 +21,10 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     switch (event.key) {
         case 'a':
-            //mover jogador para a esquerda
             keys.a.pressed = false
             break
 
         case 'd':
-            //mover jogador para a direita
             keys.d.pressed = false
             break
     }
