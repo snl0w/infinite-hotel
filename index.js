@@ -21,38 +21,38 @@ let npc = new Sprite({
 })
 
 const player = new Player({
-    imageSrc: './img/B_witch_idleRight.png',
+    imageSrc: './img/B_witch_idleRight_SemContorno.png',
     frameRate: 6, // quantas sprites tem o jogador
     animations: {
         idleRight: { // parado para a direita
             frameRate: 6, //quantos sprites tem
             frameBuffer: 7, // velocidade de atualização dos sprites
             loop: true, // loop para não parar as imagens
-            imageSrc: './img/B_witch_idleRight.png' //localização de onde está o sprite na pasta
+            imageSrc: './img/B_witch_idleRight_SemContorno.png' //localização de onde está o sprite na pasta
         },
         idleLeft: {
             frameRate: 6,
             frameBuffer: 7,
             loop: true,
-            imageSrc: './img/B_witch_idleLeft.png'
+            imageSrc: './img/B_witch_idleLeft_SemContorno.png'
         },
         runRight: {
             frameRate: 8,
             frameBuffer: 7,
             loop: true,
-            imageSrc: './img/B_witch_runRight.png'
+            imageSrc: './img/B_witch_runRight_SemContorno.png'
         },
         runLeft: {
             frameRate: 8,
             frameBuffer: 7,
             loop: true,
-            imageSrc: './img/B_witch_runLeft.png'
+            imageSrc: './img/B_witch_runLeft_SemContorno.png'
         },
         enterDoor: {
             frameRate: 8,
             frameBuffer: 7,
             loop: false,
-            imageSrc: './img/B_witch_enterDoor.png',
+            imageSrc: './img/B_witch_enterDoor_SemContorno.png',
             onComplete: () => {
                 console.log('animaçao completa')
                 gsap.to(overlay, {
