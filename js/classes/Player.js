@@ -141,4 +141,53 @@ class Player extends Sprite {
             }
         }
     }
+
+    attack() {
+        if (this.currentAnimation?.name === 'attackRight' || this.currentAnimation?.name === 'attackLeft') {
+            return // Se já estiver atacando, não interrompe a animação
+        }
+
+        this.preventInput = true; // Impede o movimento enquanto ataca
+
+        if (this.lastDirection === 'right') {
+            this.switchSprite('attackRight')
+        } else {
+            this.switchSprite('attackLeft')
+        }
+
+        let attackHitbox = {
+            position: {
+                x: this.lastDirection === 'right' ? this.position.x + 50 : this.position.x - 50,
+                y: this.position.y
+            },
+            width: 40,
+            height: 40
+        }
+
+        if (this.lastDirection === 'right') {
+            this.switchSprite('attackRight')
+        } else {
+            this.switchSprite('attackLeft')
+        }
+
+        // Checa se o ataque atingiu algum inimigo
+        enemies.forEach(enemy => {
+            if (
+                attackHitbox.position.x < enemy.hitbox.position.x + enemy.hitbox.width &&
+                attackHitbox.position.x + attackHitbox.width > enemy.hitbox.position.x &&
+                attackHitbox.position.y < enemy.hitbox.position.y + enemy.hitbox.height &&
+                attackHitbox.position.y + attackHitbox.height > enemy.hitbox.position.y
+            ) {
+                enemy.takeDamage()
+            }
+        })
+
+        // Após a animação terminar, volta para idle e permite input novamente
+        this.currentAnimation.onComplete = () => {
+            this.preventInput = false
+            this.switchSprite(this.lastDirection === 'right' ? 'idleRight' : 'idleLeft')
+        }
+
+    }
+
 }

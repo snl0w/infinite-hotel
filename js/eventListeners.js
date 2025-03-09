@@ -48,3 +48,9 @@ window.addEventListener('keyup', (event) => {
             break
     }
 })
+
+window.addEventListener('mousedown', (event) => {
+    if (event.button === 0) { // 0 representa o botão esquerdo do mouse
+        player.attack();
+    }
+});

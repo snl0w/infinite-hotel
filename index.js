@@ -8,6 +8,7 @@ let parsedCollisions
 let CollisionBlocks
 let background
 let doors
+let enemies
 
 let npc = new Sprite({
     position: {
@@ -19,6 +20,28 @@ let npc = new Sprite({
     frameBuffer: 5,
     loop: true
 })
+
+enemies = [
+    new Enemy({ 
+        position: 
+        { x: 300, 
+            y: 300 
+        }, 
+        imageSrc: './img/Enemy.png',
+        frameRate: 7,
+        frameBuffer: 5
+    }),
+    new Enemy({ position: 
+        { x: 500, 
+            y: 300 
+        }, 
+        imageSrc: './img/Enemy.png', 
+        frameRate: 7,
+        frameBuffer: 5
+    })
+]
+
+
 
 const player = new Player({
     imageSrc: './img/B_witch_idleRight_SemContorno.png',
@@ -48,6 +71,18 @@ const player = new Player({
             loop: true,
             imageSrc: './img/B_witch_runLeft_SemContorno.png'
         },
+        attackRight: {
+            imageSrc: './img/B_witch_attackRight1.png',
+            frameRate: 7,
+            frameBuffer: 5,
+            loop: false
+        },
+        attackLeft: {
+            imageSrc: './img/B_witch_attackLeft1.png',
+            frameRate: 8,
+            frameBuffer: 5,
+            loop: false
+        },
         enterDoor: {
             frameRate: 8,
             frameBuffer: 7,
@@ -74,7 +109,7 @@ const player = new Player({
     }
 })
 
-let level = 1
+let level = 2
 let levels = {
     1: {
         init: () => {
@@ -120,8 +155,6 @@ let levels = {
             if (player.currentAnimation)
                 player.currentAnimation.isActive = false
 
-
-
             background = new Sprite({
                 position: {
                     x: 0,
@@ -143,6 +176,9 @@ let levels = {
                     autoplay: false
                 })
             ]
+            
+
+
         }
     }
 }
@@ -183,12 +219,22 @@ function animate() {
     })
 
     player.handleInput(keys)
+
     if (level === 1) {
         npc.draw()
     }
+
+    if (level === 2) {
+        enemies.forEach(enemy => {
+            enemy.update();
+            enemy.draw();
+        })
+    }
+
     player.draw()
     player.update()
 
+    
 
     // save() salva o estado atual do contexto (como cor de preenchimento, transparencia, transforamçoes, etc.) em uma pilha
     c.save() // salva o estado atual do contexto
