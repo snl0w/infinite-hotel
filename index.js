@@ -60,11 +60,11 @@ const player = new Player({
                     onComplete: () => {
                         level++
 
-                        if(level === 3) level = 1
+                        if (level === 3) level = 1
                         levels[level].init()
                         player.switchSprite('idleRight')
                         player.preventInput = false
-                        gsap.to(overlay,{
+                        gsap.to(overlay, {
                             opacity: 0
                         })
                     }
@@ -82,7 +82,7 @@ let levels = {
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
 
-            if(player.currentAnimation)
+            if (player.currentAnimation)
                 player.currentAnimation.isActive = false
 
 
@@ -117,10 +117,10 @@ let levels = {
             player.position.x = 250
             player.position.y = 250
 
-            if(player.currentAnimation)
+            if (player.currentAnimation)
                 player.currentAnimation.isActive = false
 
-            
+
 
             background = new Sprite({
                 position: {
@@ -183,7 +183,7 @@ function animate() {
     })
 
     player.handleInput(keys)
-    if(level === 1){
+    if (level === 1) {
         npc.draw()
     }
     player.draw()
@@ -202,3 +202,10 @@ function animate() {
 levels[level].init()
 animate()
 
+let clicked = false
+addEventListener('click', () => {
+    if (!clicked) {
+        audio.Map.play()
+        clicked = true
+    }
+})
