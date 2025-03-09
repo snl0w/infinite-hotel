@@ -9,6 +9,17 @@ let CollisionBlocks
 let background
 let doors
 
+let npc = new Sprite({
+    position: {
+        x: 435,
+        y: 415
+    },
+    imageSrc: './img/Meow-Knight_Idle.png',
+    frameRate: 6,
+    frameBuffer: 5,
+    loop: true
+})
+
 const player = new Player({
     imageSrc: './img/B_witch_idleRight.png',
     frameRate: 6, // quantas sprites tem o jogador
@@ -74,6 +85,7 @@ let levels = {
             if(player.currentAnimation)
                 player.currentAnimation.isActive = false
 
+
             background = new Sprite({
                 position: {
                     x: 0,
@@ -107,6 +119,8 @@ let levels = {
 
             if(player.currentAnimation)
                 player.currentAnimation.isActive = false
+
+            
 
             background = new Sprite({
                 position: {
@@ -169,6 +183,9 @@ function animate() {
     })
 
     player.handleInput(keys)
+    if(level === 1){
+        npc.draw()
+    }
     player.draw()
     player.update()
 
