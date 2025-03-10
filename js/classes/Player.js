@@ -142,7 +142,7 @@ class Player extends Sprite {
         }
     }
 
-    attack() {
+    /*attack() {
         if (this.currentAnimation?.name === 'attackRight' || this.currentAnimation?.name === 'attackLeft') {
             return // Se já estiver atacando, não interrompe a animação
         }
@@ -179,7 +179,7 @@ class Player extends Sprite {
                 attackHitbox.position.y + attackHitbox.height > enemy.hitbox.position.y
             ) {
                 enemy.takeDamage()
-            }
+            } 
         })
 
         // Após a animação terminar, volta para idle e permite input novamente
@@ -188,6 +188,6 @@ class Player extends Sprite {
             this.switchSprite(this.lastDirection === 'right' ? 'idleRight' : 'idleLeft')
         }
 
-    }
+    }*/
 
 }

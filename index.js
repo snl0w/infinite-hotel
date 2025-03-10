@@ -21,7 +21,7 @@ let npc = new Sprite({
     loop: true
 })
 
-enemies = [
+/*enemies = [
     new Enemy({ 
         position: 
         { x: 300, 
@@ -39,7 +39,7 @@ enemies = [
         frameRate: 7,
         frameBuffer: 5
     })
-]
+]*/
 
 
 
@@ -71,7 +71,7 @@ const player = new Player({
             loop: true,
             imageSrc: './img/B_witch_runLeft_SemContorno.png'
         },
-        attackRight: {
+        /*attackRight: {
             imageSrc: './img/B_witch_attackRight1.png',
             frameRate: 7,
             frameBuffer: 5,
@@ -82,7 +82,7 @@ const player = new Player({
             frameRate: 8,
             frameBuffer: 5,
             loop: false
-        },
+        }*/
         enterDoor: {
             frameRate: 8,
             frameBuffer: 7,
@@ -109,7 +109,7 @@ const player = new Player({
     }
 })
 
-let level = 2
+let level = 1
 let levels = {
     1: {
         init: () => {
@@ -224,12 +224,12 @@ function animate() {
         npc.draw()
     }
 
-    if (level === 2) {
+    /*if (level === 2) {
         enemies.forEach(enemy => {
             enemy.update();
             enemy.draw();
         })
-    }
+    }*/
 
     player.draw()
     player.update()

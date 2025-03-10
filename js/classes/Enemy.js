@@ -1,4 +1,4 @@
-class Enemy extends Sprite {
+/*class Enemy extends Sprite {
     constructor({ position, imageSrc, frameRate, animations, speed = 2, health = 3 }) {
         super({ position, imageSrc, frameRate, animations })
 
@@ -48,4 +48,4 @@ class Enemy extends Sprite {
             height: 50
         }
     }
-}
+}*/
