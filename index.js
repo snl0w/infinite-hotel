@@ -54,6 +54,17 @@ const keyD = new Sprite({
     loop: true
 })
 
+const mouseTutorial = new Sprite({
+    position: {
+        x: 500,
+        y: 350
+    },
+    imageSrc: './img/Mouse.png',
+    frameRate: 3,
+    frameBuffer: 15,
+    loop: true
+})
+
 const npc = new Sprite({
     position: {
         x: 435,
@@ -170,7 +181,7 @@ let levels = {
             parsedCollisions = collisionsLevel3.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
-            player.position.x = 475
+            player.position.x = 495
             player.position.y = 390
 
             if (player.currentAnimation)
@@ -247,6 +258,10 @@ function animate() {
         keyW2.draw()
         keyA.draw()
         keyD.draw()
+    }
+
+    if (level === 2){
+        mouseTutorial.draw()
     }
 
 
