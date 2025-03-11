@@ -65,29 +65,8 @@ const npc = new Sprite({
     loop: true
 })
 
-/*enemies = [
-    new Enemy({ 
-        position: 
-        { x: 300, 
-            y: 300 
-        }, 
-        imageSrc: './img/Enemy.png',
-        frameRate: 7,
-        frameBuffer: 5
-    }),
-    new Enemy({ position: 
-        { x: 500, 
-            y: 300 
-        }, 
-        imageSrc: './img/Enemy.png', 
-        frameRate: 7,
-        frameBuffer: 5
-    })
-]*/
 
-
-
-let player = new Player({
+const player = new Player({
     imageSrc: './img/B_witch_idleRight_SemContorno.png',
     frameRate: 6, // quantas sprites tem o jogador
     animations: {
@@ -139,6 +118,12 @@ let player = new Player({
             }
         }
     }
+})
+
+const sword = new FloatingSword({
+    player: player,
+    imageSrc: "./img/Espada.png",
+    offset: { x: 30, y: -20 } // Ajuste a posição relativa
 })
 
 let level = 1
@@ -264,15 +249,11 @@ function animate() {
         keyD.draw()
     }
 
-    /*if (level === 2) {
-        enemies.forEach(enemy => {
-            enemy.update();
-            enemy.draw();
-        })
-    }*/
 
     player.draw()
     player.update()
+    sword.update() // Atualiza e desenha a espada
+    sword.draw()
     
 
     
@@ -280,6 +261,7 @@ function animate() {
     // save() salva o estado atual do contexto (como cor de preenchimento, transparencia, transforamçoes, etc.) em uma pilha
     c.save() // salva o estado atual do contexto
     c.globalAlpha = overlay.opacity // torna tudo invisivel (transparencia total)
+
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height) // preenche a tela de preto
     // restore() restaura o ultimo estado salvo do contexto removendo-o da pilha

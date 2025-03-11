@@ -30,6 +30,7 @@ class Sprite {
     }
     draw() {
         if (!this.loaded) return
+    
         const cropbox = {
             position: {
                 x: 0,
@@ -37,21 +38,36 @@ class Sprite {
             },
             width: this.width,
             height: this.height
-        }
-        // recorta o sheet do personagem
-        c.drawImage(this.image,
+        };
+    
+        // salva o contexto para não afetar outras operações
+        c.save()
+    
+        // move o contexto para a posição da espada (centro da espada)
+        c.translate(this.position.x + this.width / 2, this.position.y + this.height / 2)
+    
+        // aplica a rotação
+        c.rotate(this.rotation * Math.PI / 180) // converte a rotação de graus para radianos
+    
+        // desenha a espada (recortando a imagem da sprite sheet)
+        c.drawImage(
+            this.image,
             cropbox.position.x,
             cropbox.position.y,
             cropbox.width,
             cropbox.height,
-            this.position.x,
-            this.position.y,
+            -this.width / 2, // desenha a partir do centro da espada
+            -this.height / 2,
             this.width,
             this.height
         )
-
-        this.updateFrames()
+    
+        // restaura o contexto para evitar afetar outros desenhos
+        c.restore()
+    
+        this.updateFrames() // atualiza os quadros da animação, se necessário
     }
+    
 
     play() {
         this.autoplay = true

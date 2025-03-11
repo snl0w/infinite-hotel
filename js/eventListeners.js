@@ -49,8 +49,7 @@ window.addEventListener('keyup', (event) => {
     }
 })
 
-/*indow.addEventListener('mousedown', (event) => {
-    if (event.button === 0) { // 0 representa o botão esquerdo do mouse
-        player.attack();
-    }
-})*/
+// Evento de clique para atacar
+window.addEventListener("click", (event) => {
+    sword.attack(event.clientX, event.clientY)
+})
