@@ -126,7 +126,7 @@ const sword = new FloatingSword({
     offset: { x: 30, y: -20 } // Ajuste a posição relativa
 })
 
-let level = 1
+let level = 2
 let levels = {
     1: {
         init: () => {
@@ -167,11 +167,11 @@ let levels = {
     },
     2: {
         init: () => {
-            parsedCollisions = collisionsLevel2.parse2D()
+            parsedCollisions = collisionsLevel3.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
-            player.position.x = 250
-            player.position.y = 250
+            player.position.x = 475
+            player.position.y = 390
 
             if (player.currentAnimation)
                 player.currentAnimation.isActive = false
@@ -181,14 +181,14 @@ let levels = {
                     x: 0,
                     y: 0
                 },
-                imageSrc: './img/faseTeste.png'
+                imageSrc: './img/Level-2.png'
             })
 
             doors = [
                 new Sprite({
                     position: {
-                        x: 480,
-                        y: 273
+                        x: 476,
+                        y: 145
                     },
                     imageSrc: './img/Elevator Opening (46x56).png',
                     frameRate: 5,
