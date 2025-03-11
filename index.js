@@ -10,7 +10,51 @@ let background
 let doors
 let enemies
 
-let npc = new Sprite({
+const keyW2 = new Sprite({
+    position:{
+        x: 830,
+        y: 350
+    },
+    imageSrc: './img/W tecla.png',
+    frameRate: 3,
+    frameBuffer: 10,
+    loop: true
+})
+
+const keyW = new Sprite({
+    position:{
+        x: 150,
+        y: 400
+    },
+    imageSrc: './img/W tecla.png',
+    frameRate: 3,
+    frameBuffer: 10,
+    loop: true
+})
+
+const keyA = new Sprite({
+    position:{
+        x: 100,
+        y: 450
+    },
+    imageSrc: './img/A tecla.png',
+    frameRate: 3,
+    frameBuffer: 10,
+    loop: true
+})
+
+const keyD = new Sprite({
+    position:{
+        x: 200,
+        y: 450
+    },
+    imageSrc: './img/D tecla.png',
+    frameRate: 3,
+    frameBuffer: 10,
+    loop: true
+})
+
+const npc = new Sprite({
     position: {
         x: 435,
         y: 415
@@ -43,7 +87,7 @@ let npc = new Sprite({
 
 
 
-const player = new Player({
+let player = new Player({
     imageSrc: './img/B_witch_idleRight_SemContorno.png',
     frameRate: 6, // quantas sprites tem o jogador
     animations: {
@@ -71,18 +115,6 @@ const player = new Player({
             loop: true,
             imageSrc: './img/B_witch_runLeft_SemContorno.png'
         },
-        /*attackRight: {
-            imageSrc: './img/B_witch_attackRight1.png',
-            frameRate: 7,
-            frameBuffer: 5,
-            loop: false
-        },
-        attackLeft: {
-            imageSrc: './img/B_witch_attackLeft1.png',
-            frameRate: 8,
-            frameBuffer: 5,
-            loop: false
-        }*/
         enterDoor: {
             frameRate: 8,
             frameBuffer: 7,
@@ -128,6 +160,10 @@ let levels = {
                 },
                 imageSrc: './img/Level-1.png'
             })
+
+            player.position.x = 140
+            player.position.y = 410
+
 
             doors = [
                 new Sprite({
@@ -222,6 +258,10 @@ function animate() {
 
     if (level === 1) {
         npc.draw()
+        keyW.draw()
+        keyW2.draw()
+        keyA.draw()
+        keyD.draw()
     }
 
     /*if (level === 2) {
@@ -233,6 +273,7 @@ function animate() {
 
     player.draw()
     player.update()
+    
 
     
 
