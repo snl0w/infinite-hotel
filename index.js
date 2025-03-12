@@ -117,7 +117,7 @@ const player = new Player({
                     onComplete: () => {
                         level++
 
-                        if (level === 3) level = 1
+                        //if (level === 3) level = 1 // volta para o level 1
                         levels[level].init()
                         player.switchSprite('idleRight')
                         player.preventInput = false
@@ -137,7 +137,7 @@ const sword = new FloatingSword({
     offset: { x: 30, y: -20 } // Ajuste a posição relativa
 })
 
-let level = 2
+let level = 3
 let levels = {
     1: {
         init: () => {
@@ -178,7 +178,7 @@ let levels = {
     },
     2: {
         init: () => {
-            parsedCollisions = collisionsLevel3.parse2D()
+            parsedCollisions = collisionsLevel2.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
             player.position.x = 495
@@ -200,6 +200,43 @@ let levels = {
                     position: {
                         x: 476,
                         y: 145
+                    },
+                    imageSrc: './img/Elevator Opening (46x56).png',
+                    frameRate: 5,
+                    frameBuffer: 5,
+                    loop: false,
+                    autoplay: false
+                })
+            ]
+            
+
+
+        }
+    },
+    3: {
+        init: () => {
+            parsedCollisions = collisionsLevel3.parse2D()
+            CollisionBlocks = parsedCollisions.createObjectsFrom2D()
+            player.collisionBlocks = CollisionBlocks
+            player.position.x = 100
+            player.position.y = 100
+
+            if (player.currentAnimation)
+                player.currentAnimation.isActive = false
+
+            background = new Sprite({
+                position: {
+                    x: 0,
+                    y: 0
+                },
+                imageSrc: './img/Level-3.png'
+            })
+
+            doors = [
+                new Sprite({
+                    position: {
+                        x: 850,
+                        y: 400
                     },
                     imageSrc: './img/Elevator Opening (46x56).png',
                     frameRate: 5,
