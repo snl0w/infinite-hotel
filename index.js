@@ -137,7 +137,7 @@ const sword = new FloatingSword({
     offset: { x: 30, y: -20 } // Ajuste a posição relativa
 })
 
-let level = 9
+let level = 10
 let levels = {
     1: {
         init: () => {
