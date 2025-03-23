@@ -17,7 +17,7 @@ Em **Infinite Hotel**, você assume o papel de uma bruxa portadora de uma espada
 O jogo foi desenvolvido utilizando:
 - **JavaScript** - Para a lógica do jogo e interatividade.
 - **HTML** - Para estruturar os elementos visuais.
-- **Pixel Art** - Para criar os gráficos e cenários do jogo.
+- **Tiled** - Para criar os gráficos e cenários do jogo.
 
 ## 🛠 Como Jogar
 
