@@ -471,6 +471,43 @@ let levels = {
 
 
         }
+    },
+    10: {
+        init: () => {
+            parsedCollisions = collisionsLevel10.parse2D()
+            CollisionBlocks = parsedCollisions.createObjectsFrom2D()
+            player.collisionBlocks = CollisionBlocks
+            player.position.x = 100
+            player.position.y = 100
+
+            if (player.currentAnimation)
+                player.currentAnimation.isActive = false
+
+            background = new Sprite({
+                position: {
+                    x: 0,
+                    y: 0
+                },
+                imageSrc: './img/Level-10.png'
+            })
+
+            doors = [
+                new Sprite({
+                    position: {
+                        x: 850,
+                        y: 80
+                    },
+                    imageSrc: './img/Elevator Opening (46x56).png',
+                    frameRate: 5,
+                    frameBuffer: 5,
+                    loop: false,
+                    autoplay: false
+                })
+            ]
+            
+
+
+        }
     }
 }
 
