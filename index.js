@@ -117,7 +117,7 @@ const player = new Player({
                     onComplete: () => {
                         level++
 
-                        //if (level === 3) level = 1 // volta para o level 1
+                        if (level === 11) level = 1 // volta para o level 1
                         levels[level].init()
                         player.switchSprite('idleRight')
                         player.preventInput = false
@@ -137,7 +137,7 @@ const sword = new FloatingSword({
     offset: { x: 30, y: -20 } // Ajuste a posição relativa
 })
 
-let level = 10
+let level = 1
 let levels = {
     1: {
         init: () => {
@@ -477,8 +477,8 @@ let levels = {
             parsedCollisions = collisionsLevel10.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
-            player.position.x = 100
-            player.position.y = 100
+            player.position.x = 500
+            player.position.y = 400
 
             if (player.currentAnimation)
                 player.currentAnimation.isActive = false
@@ -494,8 +494,8 @@ let levels = {
             doors = [
                 new Sprite({
                     position: {
-                        x: 850,
-                        y: 80
+                        x: 760,
+                        y: 400
                     },
                     imageSrc: './img/Elevator Opening (46x56).png',
                     frameRate: 5,
