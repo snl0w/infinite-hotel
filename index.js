@@ -117,7 +117,7 @@ const player = new Player({
                     onComplete: () => {
                         level++
 
-                        if (level === 11) level = 1 // volta para o level 1
+                        if (level === 13) level = 1 // volta para o level 1
                         levels[level].init()
                         player.switchSprite('idleRight')
                         player.preventInput = false

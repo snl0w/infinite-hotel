@@ -12,7 +12,7 @@ Array.prototype.createObjectsFrom2D = function (){
     const objects = []
     this.forEach((row, y) => {
         row.forEach((symbol, x) => {
-            // seleciona os dados de do bloco de colisão
+            // seleciona os dados do bloco de colisão
             if(symbol === 332 || symbol === 374 || symbol === 364 || symbol === 348 || symbol === 380){
                 // cria uma nova colisão dentro do array de colisão de blocos
                 objects.push(new CollisionBlock({
