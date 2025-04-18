@@ -8,10 +8,9 @@ let parsedCollisions
 let CollisionBlocks
 let background
 let doors
-let enemies
 
 const keyW2 = new Sprite({
-    position:{
+    position: {
         x: 830,
         y: 350
     },
@@ -22,7 +21,7 @@ const keyW2 = new Sprite({
 })
 
 const keyW = new Sprite({
-    position:{
+    position: {
         x: 150,
         y: 400
     },
@@ -33,7 +32,7 @@ const keyW = new Sprite({
 })
 
 const keyA = new Sprite({
-    position:{
+    position: {
         x: 100,
         y: 450
     },
@@ -44,7 +43,7 @@ const keyA = new Sprite({
 })
 
 const keyD = new Sprite({
-    position:{
+    position: {
         x: 200,
         y: 450
     },
@@ -111,7 +110,6 @@ const player = new Player({
             loop: false,
             imageSrc: './img/B_witch_enterDoor_SemContorno.png',
             onComplete: () => {
-                console.log('animaçao completa')
                 gsap.to(overlay, {
                     opacity: 1,
                     onComplete: () => {
@@ -131,13 +129,33 @@ const player = new Player({
     }
 })
 
-const sword = new FloatingSword({
-    player: player,
-    imageSrc: "./img/Espada.png",
-    offset: { x: 30, y: -20 } // Ajuste a posição relativa
+const enemy = new Enemy({
+    position: { x: 400, y: 200 },
+    imageSrc: './img/Enemy.png',
+    frameRate: 7,
+    frameBuffer: 15,
+    animations: {
+        idle: {
+            imageSrc: './img/Enemy.png',
+            frameRate: 7,
+            frameBuffer: 8,
+            loop: true
+        },
+        // outras animações...
+    },
+    loop: true,
+    //collisionBlocks: collisionBlocks
 })
 
-let level = 12
+const enemies = [enemy];
+
+const sword = new FloatingSword({
+    player,
+    imageSrc: './img/Espada.png',
+    //enemies: enemies
+})
+
+let level = 2
 let levels = {
     1: {
         init: () => {
@@ -181,6 +199,7 @@ let levels = {
             parsedCollisions = collisionsLevel2.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
+            enemy.collisionBlocks = CollisionBlocks
             player.position.x = 495
             player.position.y = 390
 
@@ -195,6 +214,8 @@ let levels = {
                 imageSrc: './img/Level-2.png'
             })
 
+
+
             doors = [
                 new Sprite({
                     position: {
@@ -208,7 +229,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -245,7 +266,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -282,7 +303,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -319,7 +340,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -356,7 +377,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -393,9 +414,6 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
-
-
         }
     },
     8: {
@@ -430,7 +448,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -467,7 +485,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -504,7 +522,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -541,7 +559,7 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
@@ -578,18 +596,12 @@ let levels = {
                     autoplay: false
                 })
             ]
-            
+
 
 
         }
     }
 }
-
-
-
-
-
-
 
 // teclas "w, a, d" são iniciadas como não pressionadas
 const keys = {
@@ -630,18 +642,24 @@ function animate() {
         keyD.draw()
     }
 
-    if (level === 2){
+    if (level === 2) {
         mouseTutorial.draw()
     }
 
 
     player.draw()
     player.update()
-    sword.update() // Atualiza e desenha a espada
-    sword.draw()
-    
 
-    
+     // Atualiza e desenha o inimigo (se estiver vivo)
+     if (enemy.isAlive) {
+        enemy.update();
+        enemy.checkSwordCollision(sword); // Verifica se a espada o atingiu
+    }
+    sword.update();
+
+
+
+
 
     // save() salva o estado atual do contexto (como cor de preenchimento, transparencia, transforamçoes, etc.) em uma pilha
     c.save() // salva o estado atual do contexto
