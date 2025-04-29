@@ -8,6 +8,7 @@ let parsedCollisions
 let CollisionBlocks
 let background
 let doors
+let enemies = [];
 
 const keyW2 = new Sprite({
     position: {
@@ -129,7 +130,7 @@ const player = new Player({
     }
 })
 
-const enemy = new Enemy({
+/*const enemy = new Enemy({
     position: { x: 400, y: 200 },
     imageSrc: './img/Enemy.png',
     frameRate: 7,
@@ -148,6 +149,7 @@ const enemy = new Enemy({
 })
 
 const enemies = [enemy];
+*/
 
 const sword = new FloatingSword({
     player,
@@ -199,7 +201,46 @@ let levels = {
             parsedCollisions = collisionsLevel2.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
-            enemy.collisionBlocks = CollisionBlocks
+            //enemy.collisionBlocks = CollisionBlocks
+
+            // Resetar inimigos
+            enemies = [];
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 800, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 200, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
             player.position.x = 495
             player.position.y = 390
 
@@ -239,6 +280,28 @@ let levels = {
             parsedCollisions = collisionsLevel3.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
+
+            // Resetar inimigos
+            enemies = [];
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 500, y: 100 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
             player.position.x = 100
             player.position.y = 100
 
@@ -650,11 +713,13 @@ function animate() {
     player.draw()
     player.update()
 
-     // Atualiza e desenha o inimigo (se estiver vivo)
-     if (enemy.isAlive) {
-        enemy.update();
-        enemy.checkSwordCollision(sword); // Verifica se a espada o atingiu
-    }
+    // Atualiza e desenha todos os inimigos
+    enemies.forEach(enemy => {
+        if (enemy.isAlive) {
+            enemy.update();
+            enemy.checkSwordCollision(sword);
+        }
+    });
     sword.update();
 
 
