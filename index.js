@@ -157,7 +157,7 @@ const sword = new FloatingSword({
     //enemies: enemies
 })
 
-let level = 8
+let level = 9
 let levels = {
     1: {
         init: () => {
@@ -836,6 +836,62 @@ let levels = {
             parsedCollisions = collisionsLevel9.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
+
+            // Resetar inimigos
+            enemies = [];
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 490, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 690, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 250, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
             player.position.x = 100
             player.position.y = 100
 
