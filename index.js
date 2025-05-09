@@ -157,7 +157,7 @@ const sword = new FloatingSword({
     //enemies: enemies
 })
 
-let level = 9
+let level = 10
 let levels = {
     1: {
         init: () => {
@@ -929,6 +929,81 @@ let levels = {
             parsedCollisions = collisionsLevel10.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
             player.collisionBlocks = CollisionBlocks
+
+            // Resetar inimigos
+            enemies = [];
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 700, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 250, y: 310 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 700, y: 400 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 250, y: 400 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
             player.position.x = 500
             player.position.y = 400
 
