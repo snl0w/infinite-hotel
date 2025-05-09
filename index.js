@@ -157,7 +157,7 @@ const sword = new FloatingSword({
     //enemies: enemies
 })
 
-let level = 11
+let level = 12
 let levels = {
     1: {
         init: () => {
@@ -1133,6 +1133,96 @@ let levels = {
         init: () => {
             parsedCollisions = collisionsLevel12.parse2D()
             CollisionBlocks = parsedCollisions.createObjectsFrom2D()
+
+            // Resetar inimigos
+            enemies = [];
+
+            // Adicionar inimigo
+            enemies.push(new Enemy({
+                position: { x: 100, y: 100 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 300, y: 200 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 490, y: 200 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 670, y: 200 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
+            enemies.push(new Enemy({
+                position: { x: 870, y: 400 },
+                imageSrc: './img/Enemy.png',
+                frameRate: 7,
+                frameBuffer: 15,
+                animations: {
+                    idle: {
+                        imageSrc: './img/Enemy.png',
+                        frameRate: 7,
+                        frameBuffer: 8,
+                        loop: true
+                    }
+                },
+                loop: true,
+                collisionBlocks: CollisionBlocks
+            }));
+
             player.collisionBlocks = CollisionBlocks
             player.position.x = 100
             player.position.y = 400
