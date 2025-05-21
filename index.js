@@ -1276,56 +1276,79 @@ const overlay = {
 }
 
 function animate() {
-    window.requestAnimationFrame(animate)
+    window.requestAnimationFrame(animate);
+    
+    // Limpa o frame anterior
+    c.clearRect(0, 0, canvas.width, canvas.height);
 
-    background.draw()
+    // Função de colisão (mantida dentro do animate pois usa variáveis locais)
+    function checkPlayerEnemyCollisions() {
+        for (const enemy of enemies) {
+            if (!enemy.isAlive) continue; // Ignora inimigos mortos
+            
+            if (
+                player.hitbox.position.x + player.hitbox.width >= enemy.hitbox.position.x &&
+                player.hitbox.position.x <= enemy.hitbox.position.x + enemy.hitbox.width &&
+                player.hitbox.position.y + player.hitbox.height >= enemy.hitbox.position.y &&
+                player.hitbox.position.y <= enemy.hitbox.position.y + enemy.hitbox.height
+            ) {
+                player.die();
+                break;
+            }
+        }
+    }
+
+    // Desenha cenário
+    background.draw();
+    
+    // Desenha blocos de colisão (se necessário para debug)
     CollisionBlocks.forEach(CollisionBlock => {
-        CollisionBlock.draw()
-    })
+        CollisionBlock.draw();
+    });
 
+    // Desenha portas
     doors.forEach(door => {
-        door.draw()
-    })
+        door.draw();
+    });
 
-    player.handleInput(keys)
-
+    // Elementos específicos de nível
     if (level === 1) {
-        npc.draw()
-        keyW.draw()
-        keyW2.draw()
-        keyA.draw()
-        keyD.draw()
+        npc.draw();
+        keyW.draw();
+        keyW2.draw();
+        keyA.draw();
+        keyD.draw();
     }
 
     if (level === 2) {
-        mouseTutorial.draw()
+        mouseTutorial.draw();
     }
 
+    // Lógica do jogador
+    player.handleInput(keys);
+    player.update();
+    player.draw();
 
-    player.draw()
-    player.update()
+    // Sistema de combate
+    sword.update();
 
-    // Atualiza e desenha todos os inimigos
+    // Inimigos
     enemies.forEach(enemy => {
         if (enemy.isAlive) {
             enemy.update();
             enemy.checkSwordCollision(sword);
         }
     });
-    sword.update();
 
+    // Verificação de colisões (agora depois de atualizar todas as posições)
+    checkPlayerEnemyCollisions();
 
-
-
-
-    // save() salva o estado atual do contexto (como cor de preenchimento, transparencia, transforamçoes, etc.) em uma pilha
-    c.save() // salva o estado atual do contexto
-    c.globalAlpha = overlay.opacity // torna tudo invisivel (transparencia total)
-
-    c.fillStyle = 'black'
-    c.fillRect(0, 0, canvas.width, canvas.height) // preenche a tela de preto
-    // restore() restaura o ultimo estado salvo do contexto removendo-o da pilha
-    c.restore()
+    // Overlay (para transições)
+    c.save();
+    c.globalAlpha = overlay.opacity;
+    c.fillStyle = 'black';
+    c.fillRect(0, 0, canvas.width, canvas.height);
+    c.restore();
 }
 
 levels[level].init()
