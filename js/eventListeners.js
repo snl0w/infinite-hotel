@@ -1,6 +1,8 @@
 window.addEventListener('keydown', (event) => {
     if(player.preventInput) return
-    switch (event.key) {
+    const key = event.key.toLowerCase(); // Converte para minúsculo
+    
+    switch (key) { // Agora usando a versão minúscula
         case 'w':
             for (let i = 0; i < doors.length; i++) {
                 const door = doors[i]
@@ -20,25 +22,23 @@ window.addEventListener('keydown', (event) => {
                     return
                 }
             }
-            // velocidade e altura do jogador pulando, quanto menor o número, maior a altura que ele pula
             if (player.velocity.y === 0) player.velocity.y = -20
-
             break
+            
         case 'a':
-
-            //mover jogador para a esquerda
             keys.a.pressed = true
             break
 
         case 'd':
-            //mover jogador para a direita
             keys.d.pressed = true
             break
     }
 })
 
 window.addEventListener('keyup', (event) => {
-    switch (event.key) {
+    const key = event.key.toLowerCase(); // Converte para minúsculo
+    
+    switch (key) { // Agora usando a versão minúscula
         case 'a':
             keys.a.pressed = false
             break
