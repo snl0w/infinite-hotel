@@ -130,34 +130,12 @@ const player = new Player({
     }
 })
 
-/*const enemy = new Enemy({
-    position: { x: 400, y: 200 },
-    imageSrc: './img/Enemy.png',
-    frameRate: 7,
-    frameBuffer: 15,
-    animations: {
-        idle: {
-            imageSrc: './img/Enemy.png',
-            frameRate: 7,
-            frameBuffer: 8,
-            loop: true
-        },
-        // outras animações...
-    },
-    loop: true,
-    //collisionBlocks: collisionBlocks
-})
-
-const enemies = [enemy];
-*/
-
 const sword = new FloatingSword({
     player,
     imageSrc: './img/Espada.png',
-    //enemies: enemies
 })
 
-let level = 12
+let level = 1
 let levels = {
     1: {
         init: () => {
