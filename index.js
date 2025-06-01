@@ -10,6 +10,17 @@ let background
 let doors
 let enemies = [];
 
+let isDialogActive = false;
+const dialogBox = {
+    x: 50,
+    y: canvas.height - 150,
+    width: canvas.width - 100,
+    height: 100,
+    text: "Boa noite! Vejo que carrega uma bela espada magica, poderia me ajudar a expulsar umas criaturas que atormentam o meu hotel? Como recompensa eu te darei uma hospedagem gratis!",
+    padding: 20
+};
+
+
 const keyW2 = new Sprite({
     position: {
         x: 830,
@@ -73,8 +84,57 @@ const npc = new Sprite({
     imageSrc: './img/Meow-Knight_Idle.png',
     frameRate: 6,
     frameBuffer: 5,
-    loop: true
+    loop: true,
+    width: 50,  // Largura da hitbox
+    height: 80  // Altura da hitbox
 })
+
+function checkCollision(player, npc) {
+    return (
+        player.position.x < npc.position.x + npc.width &&
+        player.position.x + player.width > npc.position.x &&
+        player.position.y < npc.position.y + npc.height &&
+        player.position.y + player.height > npc.position.y
+    )
+}
+
+function drawDialogBox() {
+    // Fundo da caixa de diálogo
+    c.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    c.fillRect(dialogBox.x, dialogBox.y, dialogBox.width, dialogBox.height);
+    
+    // Borda da caixa
+    c.strokeStyle = 'white';
+    c.lineWidth = 2;
+    c.strokeRect(dialogBox.x, dialogBox.y, dialogBox.width, dialogBox.height);
+    
+    // Texto da caixa de diálogo
+    c.fillStyle = 'white';
+    c.font = '18px Arial';
+    wrapText(dialogBox.text, dialogBox.x + dialogBox.padding, dialogBox.y + dialogBox.padding + 20, dialogBox.width - 2*dialogBox.padding, 24);
+}
+
+// Função auxiliar para quebrar texto em várias linhas
+function wrapText(text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    
+    for(let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = c.measureText(testLine);
+        const testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && n > 0) {
+            c.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    c.fillText(line, x, y);
+}
+
 
 
 const player = new Player({
@@ -1276,6 +1336,23 @@ function animate() {
         }
     }
 
+    // Função para verificar colisão com NPC
+    function checkNPCInteraction() {
+        if (level === 1) { // Só verifica no nível 1 onde o NPC existe
+            if (
+                player.hitbox.position.x + player.hitbox.width >= npc.position.x &&
+                player.hitbox.position.x <= npc.position.x + npc.width &&
+                player.hitbox.position.y + player.hitbox.height >= npc.position.y &&
+                player.hitbox.position.y <= npc.position.y + npc.height
+            ) {
+                isDialogActive = true;
+            } else {
+                // Opcional: desativar diálogo quando o jogador sair
+                isDialogActive = false;
+            }
+        }
+    }
+
     // Desenha cenário
     background.draw();
     
@@ -1320,6 +1397,12 @@ function animate() {
 
     // Verificação de colisões (agora depois de atualizar todas as posições)
     checkPlayerEnemyCollisions();
+    checkNPCInteraction(); // Adicionada a verificação de interação com NPC
+
+    // Desenha caixa de diálogo se ativa
+    if (isDialogActive) {
+        drawDialogBox();
+    }
 
     // Overlay (para transições)
     c.save();
