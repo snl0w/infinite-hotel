@@ -15,8 +15,8 @@ const dialogBox = {
     x: 50,
     y: canvas.height - 150,
     width: canvas.width - 100,
-    height: 100,
-    text: "Boa noite! Vejo que carrega uma bela espada magica, poderia me ajudar a expulsar umas criaturas que atormentam o meu hotel? Como recompensa eu te darei uma hospedagem gratis!",
+    height: 150,
+    text: "Boa noite! Vejo que carrega uma bela espada magica, poderia me ajudar a expulsar umas criaturas que atormentam o meu hotel? Nao precisa matar todos >:3 Como recompensa eu te darei uma hospedagem gratis!",
     padding: 20
 };
 
@@ -110,7 +110,7 @@ function drawDialogBox() {
     
     // Texto da caixa de diálogo
     c.fillStyle = 'white';
-    c.font = '18px Arial';
+    c.font = '20px "Press Start 2P"';
     wrapText(dialogBox.text, dialogBox.x + dialogBox.padding, dialogBox.y + dialogBox.padding + 20, dialogBox.width - 2*dialogBox.padding, 24);
 }
 
