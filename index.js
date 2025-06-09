@@ -221,7 +221,7 @@ const sword = new FloatingSword({
     imageSrc: './img/Espada.png',
 })
 
-let level = 12
+let level = 2
 let levels = {
     1: {
         init: () => {
@@ -290,7 +290,7 @@ let levels = {
 
             enemies.push(new Enemy({
                 position: { x: 200, y: 310 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Esqueleto2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -351,7 +351,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 500, y: 220 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -385,7 +385,7 @@ let levels = {
 
             enemies.push(new Enemy({
                 position: { x: 700, y: 200 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -444,7 +444,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 320, y: 220 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Esqueleto2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -538,7 +538,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 290, y: 250 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -631,7 +631,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 390, y: 250 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -741,7 +741,7 @@ let levels = {
 
             enemies.push(new Enemy({
                 position: { x: 530, y: 250 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Esqueleto2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -848,7 +848,7 @@ let levels = {
 
             enemies.push(new Enemy({
                 position: { x: 600, y: 500 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -1000,7 +1000,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 700, y: 310 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -1111,7 +1111,7 @@ let levels = {
             // Adicionar inimigo
             enemies.push(new Enemy({
                 position: { x: 700, y: 100 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Fantasma2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
@@ -1243,7 +1243,7 @@ let levels = {
                 frameBuffer: 15,
                 animations: {
                     idle: {
-                        imageSrc: './img/Enemy.png',
+                        imageSrc: './img/Esqueleto2.png',
                         frameRate: 7,
                         frameBuffer: 8,
                         loop: true
@@ -1272,7 +1272,7 @@ let levels = {
 
             enemies.push(new Enemy({
                 position: { x: 870, y: 400 },
-                imageSrc: './img/Enemy.png',
+                imageSrc: './img/Esqueleto2.png',
                 frameRate: 7,
                 frameBuffer: 15,
                 animations: {
