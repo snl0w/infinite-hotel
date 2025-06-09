@@ -1,12 +1,60 @@
 <style>
     body {
+        
         background: black;
+        margin: 0;
+        overflow: hidden;
+    }
+    
+
+     #gameMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('./img/Menu Image.png') no-repeat center center;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        color: white;
+        text-align: center;
     }
 
-   
+    #gameTitle {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 48px;
+        margin-bottom: 30px;
+        text-shadow: 4px 4px 0px #000;
+    }
 
+    #playButton {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 24px;
+        color: white;
+        background-color: transparent;
+        border: 4px solid white;
+        padding: 15px 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-shadow: 2px 2px 0px #000;
+    }
+
+    #playButton:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+    }
+
+    
 </style>
 
+<div id="gameMenu">
+    <h1 id="gameTitle">HOTEL INFINITO</h1>
+    <button id="playButton">JOGAR</button>
+</div>
 <canvas></canvas>
 
 <style> @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Press+Start+2P&display=swap');</style>

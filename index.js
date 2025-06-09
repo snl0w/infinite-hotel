@@ -4,6 +4,32 @@ const c = canvas.getContext('2d')
 canvas.width = 64 * 16 //1024
 canvas.height = 64 * 9 //576
 
+// Variável para controlar se o jogo começou
+let gameStarted = false;
+
+// Elementos do menu
+const gameMenu = document.getElementById('gameMenu');
+const playButton = document.getElementById('playButton');
+
+// Evento para iniciar o jogo
+playButton.addEventListener('click', () => {
+    gameMenu.style.display = 'none';
+    gameStarted = true;
+    
+    // Inicia o jogo se não estiver rodando
+    if (!window.animationRunning) {
+        window.animationRunning = true;
+        levels[level].init();
+        animate();
+        
+        // Toca o áudio do jogo
+        if (!clicked) {
+            audio.Map.play();
+            clicked = true;
+        }
+    }
+});
+
 let parsedCollisions
 let CollisionBlocks
 let background
@@ -176,7 +202,7 @@ const player = new Player({
                     onComplete: () => {
                         level++
 
-                        if (level === 13) level = 1 // volta para o level 1
+                        if (level === 14) level = 1 // volta para o level 1
                         levels[level].init()
                         player.switchSprite('idleRight')
                         player.preventInput = false
@@ -195,7 +221,7 @@ const sword = new FloatingSword({
     imageSrc: './img/Espada.png',
 })
 
-let level = 1
+let level = 12
 let levels = {
     1: {
         init: () => {
@@ -1291,6 +1317,38 @@ let levels = {
             ]
 
 
+
+        }
+    },
+    13: {
+        init: () => {
+            
+            enemies = [];
+
+            player.position.x = 9999
+            player.position.y = 9999
+
+            background = new Sprite({
+                position: {
+                    x: 0,
+                    y: 0
+                },
+                imageSrc: './img/Tela final.png'
+            })
+
+            doors = [
+                new Sprite({
+                    position: {
+                        x: 9999,
+                        y: 9999
+                    },
+                    imageSrc: './img/Elevator Opening (46x56).png',
+                    frameRate: 5,
+                    frameBuffer: 5,
+                    loop: false,
+                    autoplay: false
+                })
+            ]
 
         }
     }
