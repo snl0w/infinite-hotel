@@ -221,7 +221,7 @@ const sword = new FloatingSword({
     imageSrc: './img/Espada.png',
 })
 
-let level = 2
+let level = 1
 let levels = {
     1: {
         init: () => {
