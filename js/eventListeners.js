@@ -1,8 +1,8 @@
 window.addEventListener('keydown', (event) => {
     if(player.preventInput) return
-    const key = event.key.toLowerCase(); // Converte para minúsculo
+    const key = event.key.toLowerCase(); 
     
-    switch (key) { // Agora usando a versão minúscula
+    switch (key) { 
         case 'w':
             for (let i = 0; i < doors.length; i++) {
                 const door = doors[i]
@@ -36,9 +36,9 @@ window.addEventListener('keydown', (event) => {
 })
 
 window.addEventListener('keyup', (event) => {
-    const key = event.key.toLowerCase(); // Converte para minúsculo
+    const key = event.key.toLowerCase(); 
     
-    switch (key) { // Agora usando a versão minúscula
+    switch (key) { 
         case 'a':
             keys.a.pressed = false
             break

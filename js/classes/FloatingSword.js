@@ -16,7 +16,7 @@ class FloatingSword extends Sprite {
         this.horizontalFloatSpeed = 0.002;
 
         this.isAttacking = false;
-        this.isActive = false; // Estado principal de atividade
+        this.isActive = false; 
         this.attackTarget = null;
         this.returning = false;
         this.attackSpeed = 8;
@@ -25,7 +25,7 @@ class FloatingSword extends Sprite {
         this.rotation = 0;
         this.rotationSpeed = 15;
 
-        // Hitbox mais precisa
+        
         this.hitbox = {
             position: { x: 0, y: 0 },
             width: 20,
@@ -40,12 +40,12 @@ class FloatingSword extends Sprite {
             this.floatAroundPlayer();
         }
 
-        // Atualiza hitbox baseado na direção
+        
         const offsetX = this.player.lastDirection === "left" ? -10 : 10;
         this.hitbox.position.x = this.position.x + offsetX;
         this.hitbox.position.y = this.position.y + 5;
 
-        // Garante que está ativa durante o ataque
+        
         this.isActive = this.isAttacking;
 
         this.draw()

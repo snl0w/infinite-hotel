@@ -143,23 +143,23 @@ class Player extends Sprite {
     }
 
     die() {
-    // Desativa o jogador temporariamente
+    
     this.preventInput = true;
     this.velocity.x = 0;
     this.velocity.y = 0;
     
-    // Animação de morte (pode customizar)
+    
     gsap.to(overlay, {
         opacity: 1,
         duration: 0.5,
         onComplete: () => {
-            // Reinicia o nível atual
+            
             levels[level].init();
             
-            // Retorna o controle ao jogador
+            
             this.preventInput = false;
             
-            // Fade in
+            
             gsap.to(overlay, {
                 opacity: 0,
                 duration: 0.5
@@ -167,8 +167,7 @@ class Player extends Sprite {
         }
     });
     
-    // Se quiser adicionar uma animação de morte específica:
-    // this.switchSprite('deathAnimation');
+
 }
 
 }

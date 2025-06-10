@@ -4,24 +4,24 @@ const c = canvas.getContext('2d')
 canvas.width = 64 * 16 //1024
 canvas.height = 64 * 9 //576
 
-// Variável para controlar se o jogo começou
+
 let gameStarted = false;
 
 // Elementos do menu
 const gameMenu = document.getElementById('gameMenu');
 const playButton = document.getElementById('playButton');
 
-// Evento para iniciar o jogo
+
 playButton.addEventListener('click', () => {
     gameMenu.style.display = 'none';
     gameStarted = true;
-    
+
     // Inicia o jogo se não estiver rodando
     if (!window.animationRunning) {
         window.animationRunning = true;
         levels[level].init();
-        animate();
-        
+        animate(0);
+
         // Toca o áudio do jogo
         if (!clicked) {
             audio.Map.play();
@@ -35,6 +35,11 @@ let CollisionBlocks
 let background
 let doors
 let enemies = [];
+
+let fps = 60;
+let msPerFrame = 1000 / fps;
+let lag = 0;
+let lastTime = 0;
 
 let isDialogActive = false;
 const dialogBox = {
@@ -128,28 +133,28 @@ function drawDialogBox() {
     // Fundo da caixa de diálogo
     c.fillStyle = 'rgba(0, 0, 0, 0.7)';
     c.fillRect(dialogBox.x, dialogBox.y, dialogBox.width, dialogBox.height);
-    
+
     // Borda da caixa
     c.strokeStyle = 'white';
     c.lineWidth = 2;
     c.strokeRect(dialogBox.x, dialogBox.y, dialogBox.width, dialogBox.height);
-    
+
     // Texto da caixa de diálogo
     c.fillStyle = 'white';
     c.font = '20px "Press Start 2P"';
-    wrapText(dialogBox.text, dialogBox.x + dialogBox.padding, dialogBox.y + dialogBox.padding + 20, dialogBox.width - 2*dialogBox.padding, 24);
+    wrapText(dialogBox.text, dialogBox.x + dialogBox.padding, dialogBox.y + dialogBox.padding + 20, dialogBox.width - 2 * dialogBox.padding, 24);
 }
 
 // Função auxiliar para quebrar texto em várias linhas
 function wrapText(text, x, y, maxWidth, lineHeight) {
     const words = text.split(' ');
     let line = '';
-    
-    for(let n = 0; n < words.length; n++) {
+
+    for (let n = 0; n < words.length; n++) {
         const testLine = line + words[n] + ' ';
         const metrics = c.measureText(testLine);
         const testWidth = metrics.width;
-        
+
         if (testWidth > maxWidth && n > 0) {
             c.fillText(line, x, y);
             line = words[n] + ' ';
@@ -1322,7 +1327,7 @@ let levels = {
     },
     13: {
         init: () => {
-            
+
             enemies = [];
 
             player.position.x = 9999
@@ -1371,81 +1376,49 @@ const overlay = {
     opacity: 0
 }
 
-function animate() {
-    window.requestAnimationFrame(animate);
-    
-    // Limpa o frame anterior
-    c.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Função de colisão (mantida dentro do animate pois usa variáveis locais)
-    function checkPlayerEnemyCollisions() {
-        for (const enemy of enemies) {
-            if (!enemy.isAlive) continue; // Ignora inimigos mortos
+function checkPlayerEnemyCollisions() {
+    for (const enemy of enemies) {
+        if (!enemy.isAlive) continue; 
+
+        if (
+            player.hitbox.position.x + player.hitbox.width >= enemy.hitbox.position.x &&
+            player.hitbox.position.x <= enemy.hitbox.position.x + enemy.hitbox.width &&
+            player.hitbox.position.y + player.hitbox.height >= enemy.hitbox.position.y &&
+            player.hitbox.position.y <= enemy.hitbox.position.y + enemy.hitbox.height
+        ) {
+            player.die();
+            break;
+        }
+    }
+}
+
+
+function checkNPCInteraction() {
+    if (level === 1) { 
+        if (
+            player.hitbox.position.x + player.hitbox.width >= npc.position.x &&
+            player.hitbox.position.x <= npc.position.x + npc.width &&
+            player.hitbox.position.y + player.hitbox.height >= npc.position.y &&
+            player.hitbox.position.y <= npc.position.y + npc.height
+        ) {
+            isDialogActive = true;
+        } else {
             
-            if (
-                player.hitbox.position.x + player.hitbox.width >= enemy.hitbox.position.x &&
-                player.hitbox.position.x <= enemy.hitbox.position.x + enemy.hitbox.width &&
-                player.hitbox.position.y + player.hitbox.height >= enemy.hitbox.position.y &&
-                player.hitbox.position.y <= enemy.hitbox.position.y + enemy.hitbox.height
-            ) {
-                player.die();
-                break;
-            }
+            isDialogActive = false;
         }
     }
+}
 
-    // Função para verificar colisão com NPC
-    function checkNPCInteraction() {
-        if (level === 1) { // Só verifica no nível 1 onde o NPC existe
-            if (
-                player.hitbox.position.x + player.hitbox.width >= npc.position.x &&
-                player.hitbox.position.x <= npc.position.x + npc.width &&
-                player.hitbox.position.y + player.hitbox.height >= npc.position.y &&
-                player.hitbox.position.y <= npc.position.y + npc.height
-            ) {
-                isDialogActive = true;
-            } else {
-                // Opcional: desativar diálogo quando o jogador sair
-                isDialogActive = false;
-            }
-        }
-    }
-
-    // Desenha cenário
-    background.draw();
+function update() {
     
-    // Desenha blocos de colisão (se necessário para debug)
-    CollisionBlocks.forEach(CollisionBlock => {
-        CollisionBlock.draw();
-    });
-
-    // Desenha portas
-    doors.forEach(door => {
-        door.draw();
-    });
-
-    // Elementos específicos de nível
-    if (level === 1) {
-        npc.draw();
-        keyW.draw();
-        keyW2.draw();
-        keyA.draw();
-        keyD.draw();
-    }
-
-    if (level === 2) {
-        mouseTutorial.draw();
-    }
-
-    // Lógica do jogador
     player.handleInput(keys);
     player.update();
-    player.draw();
 
-    // Sistema de combate
+    
     sword.update();
 
-    // Inimigos
+   
     enemies.forEach(enemy => {
         if (enemy.isAlive) {
             enemy.update();
@@ -1453,16 +1426,98 @@ function animate() {
         }
     });
 
-    // Verificação de colisões (agora depois de atualizar todas as posições)
+    
     checkPlayerEnemyCollisions();
-    checkNPCInteraction(); // Adicionada a verificação de interação com NPC
+    checkNPCInteraction();
+}
 
-    // Desenha caixa de diálogo se ativa
+function draw() {
+    
+    c.clearRect(0, 0, canvas.width, canvas.height);
+
+    
+    background.draw();
+
+    
+    doors.forEach(door => door.draw());
+
+    if (level === 1) {
+        npc.draw();
+        
+    }
+
+    player.draw();
+
+    enemies.forEach(enemy => {
+        if (enemy.isAlive) enemy.draw(); 
+    });
+
+    
     if (isDialogActive) {
         drawDialogBox();
     }
 
-    // Overlay (para transições)
+}
+
+function animate(timestamp) {
+     window.requestAnimationFrame(animate);
+
+    
+    const elapsedTime = timestamp - lastTime;
+    lastTime = timestamp;
+
+    
+    lag += elapsedTime;
+
+    
+    while (lag >= msPerFrame) {
+        
+        
+        player.handleInput(keys);
+        player.update();
+        sword.update();
+        enemies.forEach(enemy => {
+            if (enemy.isAlive) {
+                enemy.update();
+                enemy.checkSwordCollision(sword);
+            }
+        });
+        checkPlayerEnemyCollisions();
+        checkNPCInteraction();
+        
+
+        lag -= msPerFrame; 
+    }
+    
+    c.clearRect(0, 0, canvas.width, canvas.height);
+
+    
+    background.draw();
+    CollisionBlocks.forEach(CollisionBlock => CollisionBlock.draw());
+    doors.forEach(door => door.draw());
+    
+    if (level === 1) {
+        npc.draw();
+        keyW.draw();
+        keyW2.draw();
+        keyA.draw();
+        keyD.draw();
+    }
+    if (level === 2) {
+        mouseTutorial.draw();
+    }
+
+    player.draw();
+    sword.draw(); 
+    enemies.forEach(enemy => {
+        if(enemy.isAlive) enemy.draw();
+    });
+
+    if (isDialogActive) {
+        drawDialogBox();
+    }
+    
+    
     c.save();
     c.globalAlpha = overlay.opacity;
     c.fillStyle = 'black';
@@ -1471,7 +1526,7 @@ function animate() {
 }
 
 levels[level].init()
-animate()
+animate(0)
 
 let clicked = false
 addEventListener('click', () => {

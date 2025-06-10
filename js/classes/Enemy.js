@@ -29,11 +29,11 @@ class Enemy extends Sprite {
       this.gravity = 0.9;
       this.collisionBlocks = collisionBlocks;
 
-      this.isAlive = true; // <- novo!
+      this.isAlive = true; 
   }
 
   update() {
-      if (!this.isAlive) return; // <- impede inimigo morto de continuar sendo atualizado
+      if (!this.isAlive) return;
 
       this.position.x += this.velocity.x;
 
@@ -51,7 +51,7 @@ class Enemy extends Sprite {
   die() {
       this.isAlive = false;
 
-      // 1. Faz ele desaparecer do mapa (pode trocar por animação de morte depois):
+      
       this.position = { x: -9999, y: -9999 };
 
   }
@@ -136,17 +136,16 @@ class Enemy extends Sprite {
   }
 
   checkSwordCollision(sword) {
-    if (!this.isAlive || !sword.isActive) return false; // Se inimigo já morreu ou espada não está ativa, ignora
+    if (!this.isAlive || !sword.isActive) return false; 
 
-    // Verifica colisão entre a hitbox da espada e do inimigo
+    
     if (
         sword.hitbox.position.x + sword.hitbox.width >= this.hitbox.position.x &&
         sword.hitbox.position.x <= this.hitbox.position.x + this.hitbox.width &&
         sword.hitbox.position.y + sword.hitbox.height >= this.hitbox.position.y &&
         sword.hitbox.position.y <= this.hitbox.position.y + this.hitbox.height
     ) {
-      console.log('espada atingiu inimigo')
-        this.die(); // Mata o inimigo se houve colisão
+        this.die(); 
         return true;
     }
     return false;
